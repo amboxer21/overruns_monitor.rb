@@ -24,7 +24,7 @@ final_arr, old, arr_old, arr_new = [], [], [], []
 
       if @count == 5
         ##puts "NOTICE: Overruns are incrementing on #{@hostname}."
-	      `/bin/echo "NOTICE: Overruns are incrementing on #{@hostname}."  | /usr/bin/logger -t overruns`
+	`/bin/echo "NOTICE: Overruns are incrementing on #{@hostname}."  | /usr/bin/logger -t overruns`
         exit
       end
 
