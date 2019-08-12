@@ -2,7 +2,7 @@
 A script to monitor overruns on the Sangoma cars on MTT's MGs.
 
 #### Testing
-Push the output of the ifconfig command into a file called `ifconfig.txt`. Now run your test version of the production script with a 5 second pause. While the script is running, edit one of the wireless interfaces' overruns - once every 5 seconds. On the 10th time, the script should echo a message to stdout - "Overruns are incrementing on server_name";
+Push the output of the ifconfig command into a file called `ifconfig.txt`. Now run your test version of the production script with a `5 second pause`. While the script is running, edit one of the wireless interfaces' overruns - once every `5 seconds`. On the 10th time, the script should echo a message to stdout - "Overruns are incrementing on server_name";
 
 
 ##### Testing output
