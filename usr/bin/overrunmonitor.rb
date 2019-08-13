@@ -55,15 +55,13 @@ class OverrunsMonitor
   def incremented?(original_array,new_array)
     original_array.each_index do |index|
       if new_array[index] > original_array[index] and ! @interfaces[@interfaces.keys[index]][1]
-         original_array[index] = new_array[index]
-         @interfaces[@interfaces.keys[index]][0] += 1
-         @interfaces[@interfaces.keys[index]][1] = true
-         # For testing when you want to see how many times an iface is incrementing.
-         puts "#{@interfaces.keys[index]} => #{@interfaces[@interfaces.keys[index]][0]}"
+        original_array[index] = new_array[index]
+        @interfaces[@interfaces.keys[index]][0] += 1
+        @interfaces[@interfaces.keys[index]][1] = true
+        # For testing when you want to see how many times an iface is incrementing.
+        # puts "#{@interfaces.keys[index]} => #{@interfaces[@interfaces.keys[index]][0]}"
+        push_xymon_notice(@interfaces.keys[index]) if @interfaces[@interfaces.keys[index]][0] == 10
       end
-
-      push_xymon_notice(@interfaces.keys[index]) if @interfaces[@interfaces.keys[index]][0] == 10
-
     end
   end
 
