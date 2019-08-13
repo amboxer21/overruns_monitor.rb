@@ -2,9 +2,7 @@
  
 class OverrunsMonitor
 
-  @@errors_found = false
-
-  ORIGINAL_STATE, INITIAL_STATE = [], []
+  ORIGINAL_RX_STATE, ORIGINAL_TX_STATE, INITIAL_STATE = [], [], []
 
   def initialize
 
@@ -80,13 +78,11 @@ class OverrunsMonitor
       # Checks values of overruns at each pass. They are cleared at the end of the loop. 
       # After comparing to the initial values
       query_interfaces(ifconfig,@new_state)
-      ##query_interfaces(ifconfig,@new_state)
-
       populate_final_array(@new_state,@final_rx_state,'RX') # RX arg not needed but used to balance out with the method below
       populate_final_array(@new_state,@final_tx_state,'TX')
  
-      incremented?(ORIGINAL_STATE,@final_rx_state)
-      incremented?(ORIGINAL_STATE,@final_tx_state)
+      incremented?(ORIGINAL_RX_STATE,@final_rx_state)
+      incremented?(ORIGINAL_TX_STATE,@final_tx_state)
 
       reset_interface_boolean_values(@interfaces)
  
@@ -117,6 +113,7 @@ overruns = OverrunsMonitor.new
 # In which case they will inherit the loop iterations values.
 overruns.query_interfaces(ifconfig,OverrunsMonitor::INITIAL_STATE)
 ##overruns.query_interfaces(ifconfig,OverrunsMonitor::INITIAL_STATE)
-overruns.populate_final_array(OverrunsMonitor::INITIAL_STATE,OverrunsMonitor::ORIGINAL_STATE)
+overruns.populate_final_array(OverrunsMonitor::INITIAL_STATE,OverrunsMonitor::ORIGINAL_RX_STATE,'RX')
+overruns.populate_final_array(OverrunsMonitor::INITIAL_STATE,OverrunsMonitor::ORIGINAL_TX_STATE,'TX')
 
 overruns.monitor
