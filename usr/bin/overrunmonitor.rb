@@ -20,6 +20,7 @@ class OverrunsMonitor
 
   end
 
+  # Reset bool values in the interfaces hash
   def reset_interface_boolean_values(nested_hash)
     nested_hash.each_with_index do |interface,index|
       nested_hash[nested_hash.keys[index]][1] = false
