@@ -14,8 +14,10 @@ class OverrunsMonitor
 
     # @hash_structure = {interface => [count, skip_tx_overrun]}
     @interfaces = {
-      "w1g1" => [0, false], "w2g1" => [0, false], "w3g1" => [0, false], "w4g1" => [0, false],
-      "w5g1" => [0, false], "w6g1" => [0, false], "w7g1" => [0, false], "w8g1" => [0, false],
+      "w1g1" => [0, false], "w2g1" => [0, false],
+      "w3g1" => [0, false], "w4g1" => [0, false],
+      "w5g1" => [0, false], "w6g1" => [0, false],
+      "w7g1" => [0, false], "w8g1" => [0, false],
     }
 
   end
