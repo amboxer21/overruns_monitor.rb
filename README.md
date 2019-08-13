@@ -117,5 +117,8 @@ w8g1 => 11
 [aguevara@cm-mg0 ~]$  
 ```
 
-Open ifconfig.txt with vim and use inline vim to modify all overruns with: `:%s/\(overruns:\)\([0-9]\{1,3\}\)/\1100/g`
+Open `ifconfig.txt` with vim and use inline sed to modify all overruns with: `:%s/\(overruns:\)\([0-9]\{1,3\}\)/\1100/g`
 The `1100` number should be incremented each time the script picks up the changes: 1100, 1101, 1102, etc.
+
+##### Generating ifconfig.txt
+ifconfig > ifconfig.txt
