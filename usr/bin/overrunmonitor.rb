@@ -12,7 +12,7 @@ class OverrunsMonitor
     @round      = 0 # Loop iteration counter
     @hostname   = `/bin/hostname`.gsub(/\n/,'')
 
-    # hash_structure = {interface => [count, skip_tx_overrun]}
+    # @hash_structure = {interface => [count, skip_tx_overrun]}
     @interfaces = {
       "w1g1" => [0, false], "w2g1" => [0, false], "w3g1" => [0, false], "w4g1" => [0, false],
       "w5g1" => [0, false], "w6g1" => [0, false], "w7g1" => [0, false], "w8g1" => [0, false],
@@ -28,7 +28,7 @@ class OverrunsMonitor
 
   # This method queries the interface up until the TX line
   # SAMPLE OUTPUT BELOW:
-  #wXg1 Link encap:Point-to-Point Protocol
+  #w1g1 Link encap:Point-to-Point Protocol
   #UP POINTOPOINT RUNNING NOARP  MTU:8  Metric:1
   #RX packets:22551337 errors:0 dropped:0 overruns:17 frame:8
   #TX packets:22551308 errors:0 dropped:0 overruns:59 carrier:5
@@ -110,7 +110,6 @@ overruns = OverrunsMonitor.new
 # These values will never change unless they differ from the second push inside the loop below. 
 # In which case they will inherit the loop iterations values.
 overruns.query_interfaces(ifconfig,OverrunsMonitor::INITIAL_STATE)
-##overruns.query_interfaces(ifconfig,OverrunsMonitor::INITIAL_STATE)
 overruns.populate_final_array(OverrunsMonitor::INITIAL_STATE,OverrunsMonitor::ORIGINAL_RX_STATE,'RX')
 overruns.populate_final_array(OverrunsMonitor::INITIAL_STATE,OverrunsMonitor::ORIGINAL_TX_STATE,'TX')
 
