@@ -6,8 +6,7 @@ class OverrunsMonitor
 
   def initialize
 
-    @final_state, @new_state = [], []
-    @final_rx_state, @final_tx_state = [], []
+    @final_rx_state, @final_tx_state, @new_state = [], [], []
 
     @round      = 0 # Loop iteration counter
     @hostname   = `/bin/hostname`.gsub(/\n/,'')
@@ -22,7 +21,7 @@ class OverrunsMonitor
 
   end
 
-  # Reset bool values in the interfaces hash
+  # Reset bool values in the @interfaces hash
   def reset_interface_boolean_values(nested_hash)
     nested_hash.each_with_index do |interface,index|
       nested_hash[nested_hash.keys[index]][1] = false
@@ -41,6 +40,7 @@ class OverrunsMonitor
     end
   end
 
+  # Only push the overrun count of RX or TX, whichever is specified.
   def populate_final_array(old_array,final_array,dx='RX')
     old_array.each do |lines|
       lines.scan(/\A\s+#{dx.upcase} packets.*(overruns:[0-9]+)/).to_s.scan(/\d+/).each do |line|
@@ -54,7 +54,7 @@ class OverrunsMonitor
     #`/bin/echo "NOTICE: Overruns are incrementing on interface #{interface} via #{@hostname}."  | /usr/bin/logger -t overruns`
   end
 
-  # Compare arrays for values that differ.
+  # Compare overruns values to check for differences.
   def incremented?(original_array,new_array)
     original_array.each_index do |index|
       if new_array[index] > original_array[index] and ! @interfaces[@interfaces.keys[index]][1]
@@ -79,7 +79,9 @@ class OverrunsMonitor
       # Checks values of overruns at each pass. They are cleared at the end of the loop. 
       # After comparing to the initial values
       query_interfaces(ifconfig,@new_state)
-      populate_final_array(@new_state,@final_rx_state,'RX') # RX arg not needed but used to balance out with the method below
+     
+      # RX arg not needed but used to balance out with the method below
+      populate_final_array(@new_state,@final_rx_state,'RX')
       populate_final_array(@new_state,@final_tx_state,'TX')
  
       incremented?(ORIGINAL_RX_STATE,@final_rx_state)
