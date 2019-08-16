@@ -2,8 +2,13 @@
 A script to monitor overruns on the Sangoma cars on MTT's MGs.
 
 #### Testing
-Push the output of the ifconfig command into a file called `ifconfig.txt`. Now run your test version of the production script with a `5 second pause`. While the script is running, edit one of the wireless interfaces' overruns - once every `5 seconds`. On the 10th time, the script should echo a message to stdout - "Overruns are incrementing on interface on server_name";
+First, push the output of the ifconfig command into a file called `ifconfig.txt`. 
 
+Open `ifconfig.txt` with vim and use inline sed to modify all overruns with: `:%s/\(overruns:\)\([0-9]\{1,3\}\)/\1100/g`
+The `1100` number should be incremented each time the script picks up the changes: 1100, 1101, 1102, etc. On the 10th time, the script should echo a message to stdout - "Overruns are incrementing on interface on server_name";
+
+##### Generating ifconfig.txt
+ifconfig > ifconfig.txt
 
 ##### Testing output
 ```
@@ -116,9 +121,3 @@ w7g1 => 11
 w8g1 => 11
 [aguevara@cm-mg0 ~]$  
 ```
-
-Open `ifconfig.txt` with vim and use inline sed to modify all overruns with: `:%s/\(overruns:\)\([0-9]\{1,3\}\)/\1100/g`
-The `1100` number should be incremented each time the script picks up the changes: 1100, 1101, 1102, etc.
-
-##### Generating ifconfig.txt
-ifconfig > ifconfig.txt
