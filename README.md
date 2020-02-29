@@ -1,5 +1,5 @@
 # overruns_monitor.rb
-A script to monitor overruns on the Sangoma cars on MTT's MGs.
+A script to monitor overruns on the Sangoma cards on MTT's MGs.
 
 #### Testing
 First, push the output of the ifconfig command into a file called `ifconfig.txt`. 
