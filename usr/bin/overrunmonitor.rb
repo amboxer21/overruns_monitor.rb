@@ -80,7 +80,7 @@ class OverrunsMonitor
       # After comparing to the initial values
       query_interfaces(ifconfig,@new_state)
      
-      # RX arg not needed but used to balance out with the method below
+      # RX arg not needed but it's used to asthetically balance out with the method below it.
       populate_final_array(@new_state,@final_rx_state,'RX')
       populate_final_array(@new_state,@final_tx_state,'TX')
  
